@@ -34,15 +34,15 @@ export async function logTransaction(
 	connection: Connection,
 	signature: string,
 ) {
-	const signatureStatus = await connection.getSignatureStatus(signature);
-	if (signatureStatus.value?.confirmationStatus === 'confirmed' || signatureStatus.value?.confirmationStatus === 'finalized') {
+	const signatureStatus = await connection.getSignatureStatus(signature);// 检查交易状态
+	if (signatureStatus.value?.confirmationStatus === 'confirmed' || signatureStatus.value?.confirmationStatus === 'finalized') { //有两种状态代表完成
 		console.log('Transaction confirmed!');
-	} else if (signatureStatus.value?.err) {
+	} else if (signatureStatus.value?.err) {// 交易失败
 		console.error('Transaction failed:', signatureStatus.value.err);
 	}	else {
 		console.log('Transaction not yet confirmed.');
 	}
-	console.log(`   Transaction signature: ${signature}`);
+	console.log(`   Transaction signature: ${signature}`);//signature是交易的txHash
 }
 
 export async function logBalance(

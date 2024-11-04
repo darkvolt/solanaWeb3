@@ -28,7 +28,7 @@ import {
 	logTransaction,
 	newLogSection,
 } from "./util";
-const apiUrl = process.env.RPC_URL || clusterApiUrl("devnet");
+const apiUrl = process.env.RPC_URL || clusterApiUrl("devnet");//大部分情况clusterApiUrl("devnet")连接不了
 const connection = new Connection(apiUrl, {
 	commitment: "confirmed",
 	confirmTransactionInitialTimeout: 60000,
@@ -52,7 +52,7 @@ export async function createAccount(
 		payerKeypair.publicKey,
 		[payerKeypair, newAccountKeypair],
 		[createAccountInstruction],
-	);
+	);//program 下建立一个指令，然后发送交易；可以在交易中建立复数个指令，之后写
 	const signature = await connection.sendTransaction(createAccountTransaction);
 
 	newLogSection();
